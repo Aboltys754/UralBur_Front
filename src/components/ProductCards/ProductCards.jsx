@@ -8,7 +8,11 @@ function ProductCards({ levels }) {
     React.useEffect(() => connector.del("ProductCards"));
     return (
         <div>
-            "Привет мир"
+            {levels.map((level) => <div key={level.id}>
+                <img src={`${serviceHost("mcontent")}/api/mcontent/static/images/catalog/${level.image.fileName}`}></img>
+                <p>{level.title}</p>
+            </div>)
+            }
         </div>
     )
   }
