@@ -1,10 +1,27 @@
 import serviceHost from "../libs/service.host.js";
+import connector from "../libs/connector.js";
 
-function Slider({ testimonials }) {
+connector.add("Testimonial");
+
+function Testimonial({ testimonials }) {
   React.useEffect(() => {
     _animate(jQuery);
-  })
+    connector.del("Testimonial");
+  });
 
+  return <div className="container">
+    <div className="row justify-content-center mb-5">
+      <div className="col-md-8 text-center">
+        <h2 className=" heading mb-4">Отзывы</h2>
+      </div>
+    </div>
+    <div className="nonloop-block-11 owl-carousel" id="testimonialSliderCarousel">
+      <Items testimonials={testimonials} />
+    </div>
+  </div>
+}
+
+function Items({ testimonials }) {
   return testimonials.map((e) => <div key={e.id} className="item">
     <div className="block-33 h-100">
       <div className="vcard d-flex mb-3">
@@ -24,7 +41,7 @@ function Slider({ testimonials }) {
 }
 
 function _animate($) {
-  $('#testimonialSlider').owlCarousel({
+  $('#testimonialSliderCarousel').owlCarousel({
     center: false,
     items: 1,
     loop: false,
@@ -50,12 +67,12 @@ function _animate($) {
   })
 }
 
-fetch(`${serviceHost("mcontent")}/api/mcontent/testimonial/public`)
+fetch(`${serviceHost("mcontent")}/api/mcontent/testimonial/public/?isPublic=1`)
   .then(async response => {
     const res = await response.json();
     return res;
   })
   .then(res => {
     const root = ReactDOM.createRoot(document.getElementById("testimonialSlider"));
-    root.render(<Slider testimonials={res} />);
+    root.render(<Testimonial testimonials={res} />);
   })

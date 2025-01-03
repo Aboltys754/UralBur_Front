@@ -4,7 +4,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -1590,7 +1590,7 @@ pre {
     color: #6c757d;
     opacity: 1; }
   .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.5); /* color: #6c757d; */
+    color: #6c757d;
     opacity: 1; }
   .form-control:disabled, .form-control[readonly] {
     background-color: #e9ecef;
@@ -3276,7 +3276,7 @@ input[type="button"].btn-block {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
-  font-size: 2.25rem; /* 1.25rem */
+  font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap; }
   .navbar-brand:hover, .navbar-brand:focus {
@@ -7348,8 +7348,8 @@ header {
     header {
       top: 0; } }
   header .navbar-brand {
-    /* text-transform: uppercase; */
-    letter-spacing: .1em; /* letter-spacing: .2em; */
+    text-transform: uppercase;
+    letter-spacing: .2em;
     font-weight: 400; }
     header .navbar-brand.absolute {
       position: absolute; }
@@ -7366,7 +7366,7 @@ header {
     font-family: "Montserrat", sans-serif; }
     @media (max-width: 1199.98px) {
       header .navbar {
-        background: #fd5f00 !important; /* background: black !important; */
+        background: black !important;
         padding-top: .5rem;
         padding-bottom: .5rem; } }
     header .navbar .nav-link {
@@ -7628,16 +7628,16 @@ header {
     content: "";
     position: absolute;
     top: 0;
-    height: 150px; /* height: 500px; */
+    height: 500px;
     width: 100%;
-    background: #fd5f00; /* background: black; */
-    /* background: -moz-linear-gradient(top, black 0%, rgba(145, 232, 66, 0) 100%);
+    background: black;
+    background: -moz-linear-gradient(top, black 0%, rgba(145, 232, 66, 0) 100%);
     background: -webkit-gradient(left top, left bottom, color-stop(0%, black), color-stop(100%, rgba(145, 232, 66, 0)));
     background: -webkit-linear-gradient(top, black 0%, rgba(145, 232, 66, 0) 100%);
     background: -o-linear-gradient(top, black 0%, rgba(145, 232, 66, 0) 100%);
     background: -ms-linear-gradient(top, black 0%, rgba(145, 232, 66, 0) 100%);
     background: -webkit-gradient(linear, left top, left bottom, from(black), to(rgba(145, 232, 66, 0)));
-    background: linear-gradient(to bottom, black 0%, rgba(145, 232, 66, 0) 100%); */
+    background: linear-gradient(to bottom, black 0%, rgba(145, 232, 66, 0) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#91e842', GradientType=0 ); }
   .slider-item .slider-text {
     color: #fff;
@@ -7656,9 +7656,9 @@ header {
       margin-left: 0.5em; }
       .slider-item .slider-text h1 span {
         color: white;
-        /* background-color: #fd5f00;
-        -webkit-box-shadow: 0.5em 0 0 #fd5f00,-0.5em 0 0 #fd5f00; */
-        /* box-shadow: 0.5em 0 0 #fd5f00,-0.5em 0 0 #fd5f00;  */}
+        background-color: #fd5f00;
+        -webkit-box-shadow: 0.5em 0 0 #fd5f00,-0.5em 0 0 #fd5f00;
+        box-shadow: 0.5em 0 0 #fd5f00,-0.5em 0 0 #fd5f00; }
       @media (max-width: 991.98px) {
         .slider-item .slider-text h1 {
           font-size: 40px; } }
@@ -8271,8 +8271,3 @@ header {
     -webkit-transform: scale(1.2);
     -ms-transform: scale(1.2);
     transform: scale(1.2); }
-
-    /* custom style */
-.navbar-nav form .icon{
-  color:rgba(255, 255, 255, 0.5);
-}

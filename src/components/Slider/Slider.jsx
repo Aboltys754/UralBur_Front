@@ -1,12 +1,12 @@
-import { loader, elementAnimate } from "../libs/common.js";
 import serviceHost from "../libs/service.host.js";
+import connector from "../libs/connector.js";
 
+connector.add("Slider");
 
 function Slider({ slides }) {
   React.useEffect(() => {
     _animate(jQuery);
-    elementAnimate('#mainSlider', jQuery);
-    loader(jQuery);
+    connector.del("Slider");
   })
 
   return slides.map((e) => <div key={e.id} className="slider-item" style={{ "backgroundImage": `url('${serviceHost("mcontent")}/api/mcontent/static/images/slider/${e.image.fileName}')` }}>
@@ -50,7 +50,7 @@ function _animate($) {
   });
 }
 
-fetch(`${serviceHost("mcontent")}/api/mcontent/slider/public/search`)
+fetch(`${serviceHost("mcontent")}/api/mcontent/slider/public/?isPublic=1`)
   .then(async response => {
     const res = await response.json();
     return res;

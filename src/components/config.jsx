@@ -1,9 +1,9 @@
-const prod = true; 
+const prod = false; 
 export default {
   mcontent: {
     back: {
-      host: prod ? '' : 'http://localhost',
-      port: prod ? 0 : 8080,
+      host: prod ? '' : 'http://127.0.0.1',
+      port: prod ? 0 : 3020,
     }
   },
 }
