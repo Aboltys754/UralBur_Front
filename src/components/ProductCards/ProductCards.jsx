@@ -4,8 +4,10 @@ import connector from "../libs/connector.js";
 
 connector.add("ProductCards");
 
-function ProductCards({ levels }) {
+function ProductCards({ levels, positions }) {
     React.useEffect(() => connector.del("ProductCards"));
+    levels.map((level) => console.log(level))
+    positions.map((position) => console.log(position))
     return (
         <div>
             {levels.map((level) => <div key={level.id}>
@@ -17,14 +19,13 @@ function ProductCards({ levels }) {
     )
   }
 
-
   
-fetch(`${serviceHost("mcontent")}/api/mcontent/catalog/level/public`)
-    .then(async response => {
-        const res = await response.json();
-        return res;
-    })
-    .then(res => {
-        const root = ReactDOM.createRoot(document.getElementById("productCards"));
-        root.render(<ProductCards levels={res} />);
-    })
+const levelsFetch = fetch(`${serviceHost("mcontent")}/api/mcontent/catalog/level/public`);
+const positionsFetch = fetch(`${serviceHost("mcontent")}/api/mcontent/catalog/position/public`);
+
+Promise.all([levelsFetch, positionsFetch])
+    .then(responses => Promise.all(responses.map(async res => await res.json())))
+    .then(responses => {
+    const root = ReactDOM.createRoot(document.getElementById("productCards"));
+    root.render(<ProductCards levels={responses[0]} positions={responses[1]}/>);
+    });
