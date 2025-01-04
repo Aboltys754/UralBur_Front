@@ -1,25 +1,29 @@
 import serviceHost from "../libs/service.host.js";
 import connector from "../libs/connector.js";
+import styles from "./styles.module.css"
 
 
 connector.add("ProductCards");
 
 function ProductCards({ levels, positions }) {
     React.useEffect(() => connector.del("ProductCards"));
+    const [lev, useLev] = React.useState(0);
     levels.map((level) => console.log(level))
-    positions.map((position) => console.log(position))
-    return (
-        <div>
-            {levels.map((level) => <div key={level.id}>
+    positions.map((position) => console.log(position));
+    if (lev === 0) {
+        return (
+            <div className={styles.root}>
+                {levels.map((level) => <button key={level.id}>
                 <img src={`${serviceHost("mcontent")}/api/mcontent/static/images/catalog/${level.image.fileName}`}></img>
                 <p>{level.title}</p>
-            </div>)
-            }
-        </div>
-    )
+             </button>)
+             }
+            </div>
+        )
+    }
   }
 
-  
+ 
 const levelsFetch = fetch(`${serviceHost("mcontent")}/api/mcontent/catalog/level/public`);
 const positionsFetch = fetch(`${serviceHost("mcontent")}/api/mcontent/catalog/position/public`);
 
