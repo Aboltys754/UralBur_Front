@@ -6,22 +6,24 @@ import Chapter from './Chapter/Chapter.js';
 connector.add("ProductCards");
 const objectAllChapter = {};
 
-function ProductCards({ levels }) {
+function ProductCards({ sections, positions }) {
     React.useEffect(() => connector.del("ProductCards"));
     const [lev, setLev] = React.useState('0');
-    const [levValue, setLevValue] = React.useState([]);    
+    const [levValue, setLevValue] = React.useState(undefined);    
     
-    levels.map((lev, index) => _parseLevels(lev, '0' + index));
-    const mapppp = _createArreyList(lev, objectAllChapter)
+    sections.map((sec, index) => _parseLevels(sec, '0' + index));
+    const mapChapter = _createArreyListChapter(lev, objectAllChapter)
+
+    const mapPositions = _createArreyListPositions(levValue, positions)
+
     return (
         <>  
         {/* <button onClick={() => setLev(lev + '0')}>+</button>
         <button>-</button> */}
-            {mapppp.map((level) =>                 
-                <button key={level.id} className="producstCardsButton">
-                    <p className="producstCardsButtonP">{level.title}</p>
-                    <img className="producstCardsButtonImg" src={`${serviceHost("mcontent")}/api/mcontent/static/images/catalog/${level.image.fileName}`}></img>                    
-                </button>)}
+        <div>
+            <Chapter  mapChapter={mapChapter} lev={lev} setLev={setLev} setLevValue={setLevValue}/>
+        </div>
+            
         </>
     )};
 
@@ -33,12 +35,23 @@ function _parseLevels(firstValue, firstKey) {
         objectAllChapter[firstKey] = firstValue;
         (firstValue.childs).map((nextValue, nextKey) => _parseLevels(nextValue, firstKey.toString() + nextKey.toString()))}
     };
-function _createArreyList(lev, maps) {
+
+function _createArreyListChapter(lev, maps) {
     const temp_maps = []
     for (let key in maps) {
         if (key.slice(0, -1) === lev) {
             temp_maps.push(maps[key]);
         }};
+    return temp_maps
+}
+
+function _createArreyListPositions(levValue, positions) {
+    const temp_maps = []
+    for (let key in positions) {
+        if (positions[key].level.id === levValue) {
+            temp_maps.push(positions[key]);
+        }
+    };
     return temp_maps
 }
  
@@ -49,6 +62,6 @@ Promise.all([levelsFetch, positionsFetch])
     .then(responses => Promise.all(responses.map(async res => await res.json())))
     .then(responses => {
     const root = ReactDOM.createRoot(document.getElementById("productCards"));
-    root.render(<ProductCards levels={responses[0]} />);
+    root.render(<ProductCards sections={responses[0]} positions={responses[1]}/>);
     });
 
