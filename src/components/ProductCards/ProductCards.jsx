@@ -1,6 +1,7 @@
 import serviceHost from "../libs/service.host.js";
 import connector from "../libs/connector.js";
 import Chapter from './Chapter/Chapter.js';
+import Card from './Card/Card.js';
 
 
 connector.add("ProductCards");
@@ -17,12 +18,16 @@ function ProductCards({ sections, positions }) {
     const mapPositions = _createArreyListPositions(levValue, positions)
 
     return (
-        <>  
-        {/* <button onClick={() => setLev(lev + '0')}>+</button>
-        <button>-</button> */}
-        <div>
-            <Chapter  mapChapter={mapChapter} lev={lev} setLev={setLev} setLevValue={setLevValue}/>
-        </div>
+        <>          
+            <div>
+                <button disabled={lev === '0'} onClick={() => setLev(lev.slice(0, -1))}>Вернуться назад</button>
+            </div>
+            <div>
+                <Chapter  mapChapter={mapChapter} lev={lev} setLev={setLev} setLevValue={setLevValue}/>
+            </div>
+            <div>
+                <Card mapPositions={mapPositions}/>
+            </div>
             
         </>
     )};
