@@ -10,18 +10,21 @@ const objectAllChapter = {};
 function ProductCards({ sections, positions }) {
     React.useEffect(() => connector.del("ProductCards"));
     const [lev, setLev] = React.useState('0');
-    const [levValue, setLevValue] = React.useState(undefined);    
+    const [levValue, setLevValue] = React.useState(undefined);
     
     sections.map((sec, index) => _parseLevels(sec, '0' + index));
-    const mapChapter = _createArreyListChapter(lev, objectAllChapter)
+    const mapChapter = _createArreyListChapter(lev, objectAllChapter);
 
-    const mapPositions = _createArreyListPositions(levValue, positions)
+    const mapPositions = _createArreyListPositions(levValue, positions);
 
     return (
         <>          
             <div>
-                <button disabled={lev === '0'} onClick={() => setLev(lev.slice(0, -1))}>Вернуться назад</button>
+                <button 
+                    disabled={lev === '0'} 
+                    onClick={() => _clickBack(lev, setLev, levValue, setLevValue, objectAllChapter)}>Вернуться назад</button>
             </div>
+            <hr />
             <div>
                 <Chapter  mapChapter={mapChapter} lev={lev} setLev={setLev} setLevValue={setLevValue}/>
             </div>
@@ -59,6 +62,17 @@ function _createArreyListPositions(levValue, positions) {
     };
     return temp_maps
 }
+
+function _clickBack(lev, setLev, levValue, setLevValue, objectAllChapter) {
+    setLev(lev.slice(0, -1));
+    for (let key in objectAllChapter) {
+        if (objectAllChapter[key].id === levValue) {
+            if (objectAllChapter[key].parent !== null) {
+                setLevValue(objectAllChapter[key].parent)
+            } else {setLevValue(undefined)}
+            
+    }
+}}
  
 const levelsFetch = fetch(`${serviceHost("mcontent")}/api/mcontent/catalog/level/public`);
 const positionsFetch = fetch(`${serviceHost("mcontent")}/api/mcontent/catalog/position/public`);
