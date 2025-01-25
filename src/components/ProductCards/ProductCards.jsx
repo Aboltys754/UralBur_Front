@@ -1,7 +1,7 @@
 import serviceHost from "../libs/service.host.js";
 import connector from "../libs/connector.js";
 import Chapter from './Chapter/Chapter.js';
-import Card from './Card/Card.js';
+import Cards from './Cards/Cards.js';
 
 
 connector.add("ProductCards");
@@ -11,7 +11,8 @@ function ProductCards({ sections, positions }) {
     React.useEffect(() => connector.del("ProductCards"));
     const [lev, setLev] = React.useState('0');
     const [levValue, setLevValue] = React.useState(undefined);
-    
+    const [stringMap, setStringMap] = React.useState(['']);
+
     sections.map((sec, index) => _parseLevels(sec, '0' + index));
     const mapChapter = _createArreyListChapter(lev, objectAllChapter);
 
@@ -21,7 +22,7 @@ function ProductCards({ sections, positions }) {
         <>          
             <div>
                 <button 
-                    disabled={lev === '0'} 
+                    hidden={lev === '0'} 
                     onClick={() => _clickBack(lev, setLev, levValue, setLevValue, objectAllChapter)}>Вернуться назад</button>
             </div>
             <hr />
@@ -29,7 +30,7 @@ function ProductCards({ sections, positions }) {
                 <Chapter  mapChapter={mapChapter} lev={lev} setLev={setLev} setLevValue={setLevValue}/>
             </div>
             <div>
-                <Card mapPositions={mapPositions}/>
+                <Cards mapPositions={mapPositions}/>
             </div>
             
         </>
@@ -81,6 +82,7 @@ Promise.all([levelsFetch, positionsFetch])
     .then(responses => Promise.all(responses.map(async res => await res.json())))
     .then(responses => {
     const root = ReactDOM.createRoot(document.getElementById("productCards"));
-    root.render(<ProductCards sections={responses[0]} positions={responses[1]}/>);
+    root.render(
+        <ProductCards sections={responses[0]} positions={responses[1]}/>               
+                );
     });
-

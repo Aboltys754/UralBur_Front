@@ -1,0 +1,126 @@
+#productCards {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-left: 46px;
+    margin-right: 46px;
+    background-color: white;
+}
+
+#idProductsChapterButton {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.productsChapterButton {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: white;
+    margin: 5px;
+    padding: 0;
+    border: solid 3px #d1d1d1;
+    transition: transform ease 300ms;
+}
+
+.productsChapterButton:hover {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: white;
+    margin: 5px;
+    padding: 0;
+    border: solid 3px #d1d1d1;
+    box-shadow: 5px 5px 5px gray;
+    transform: translate(0, -10px);
+}
+
+.productsChapterButtonP {
+    margin: 0;
+    padding: 3px;
+    border: 0;
+    color: white;
+    background-color: #fd5f00;
+    font-size: 20px;
+}
+
+.producstChapterButtonImg {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 200px; 
+    height: 250px;
+    pointer-events: none;
+}
+
+#idProductsCardsButton {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#idProductsCardsButton>hr {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid black;
+    width: 100%;
+    height: 10px;
+}
+
+#idProductsCardsButton>p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 30px;
+    color: black;
+}
+
+.productsCardsButton {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    border: solid 3px #d1d1d1;    
+    width: 100%;
+    height: 250px;   
+    background-color: white;
+    transition: transform ease 300ms;
+}
+
+.productsCardsButton:hover {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    border: solid 3px #d1d1d1;    
+    width: 100%;
+    height: 250px;   
+    background-color: white;
+    box-shadow: 5px 5px 5px gray;
+    transform: translate(-10px, 0);
+}
+
+.productsCardsButtonDivInfo {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: black;
+}
+
+.productsCardsButtonDivImg {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.productsCardsButtonDivImg>img {
+    border: 0;
+    margin: 5px;
+    height: 230px;
+}

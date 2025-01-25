@@ -1,6 +1,6 @@
 import serviceHost from "../../libs/service.host.js"
 
-export default function Card({mapPositions}) {
+export default function Cards({mapPositions}) {
     console.log(mapPositions)
     if (mapPositions.length > 0) {        
         return (
@@ -8,7 +8,8 @@ export default function Card({mapPositions}) {
                 <p>{mapPositions[0].level.title}</p>
                 <hr />
                 {mapPositions.map((position) =>  
-                    <button key={position.id} onClick={() => console.log(position)} className="productsCardsButton">
+                    // <a key={position.id} href={`position/${position.alias}`} className="productsCardsButton">
+                    <a key={position.id} href={`best_test.html`} className="productsCardsButton">
                         <div className="productsCardsButtonDivInfo">
                             <p>{`${position.title}`}</p>
                             <p>{`${position.description}`}</p>
@@ -16,7 +17,7 @@ export default function Card({mapPositions}) {
                         <div className="productsCardsButtonDivImg">
                             <img src={`${serviceHost("mcontent")}/api/mcontent/static/images/catalog/${position.image.fileName}`} alt={`${position.title}`} />
                         </div>
-                    </button>)
+                    </a>)
                 }
             </div>)
     } else {

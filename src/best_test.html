@@ -19,10 +19,10 @@
 
   <!-- Theme Style -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/Card.css">
 
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-router@18/umd/react-router.development.js"></script>
 </head>
 
 <body>
@@ -31,27 +31,17 @@
 
   <div class="top-shadow"></div>
 
-  <!-- главный слайдер -->
-  <section class="home-slider owl-carousel" id="mainSlider"></section>
+  <!-- заглавный баннер -->
+  <div class="inner-page" id="headBanner"></div>
 
-  <!-- блок решений -->
-  <section class="section" id="solution"></section>
-
-  <!-- блок достижений -->
-  <section class="section bg-light" id="progress"></section>
-
-  <!-- каталог -->
-  <section class="section border-t pb-0" id="mainCatalog"></section>
-
-  <!-- блок отзывов -->
-  <section class="section bg-light block-11" id="testimonialSlider"></section>
+  <!-- Карточка -->
+  <div id="card"></div>
 
   <!-- скачивание прайса -->
   <section class="section bg-primary" id="downloadPrice"></section>
 
   <!-- footer -->
   <footer class="site-footer" role="contentinfo" id="footer"></footer>
-
 
   <!-- loader -->
   <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
@@ -71,11 +61,8 @@
   <script src="components/libs/connector.js" type="module"></script>
   <script src="components/Header/Header.js" type="module"></script>
   <script src="components/Navigate/Navigate.js" type="module"></script>
-  <script src="components/Slider/Slider.js" type="module"></script>
-  <script src="components/Solution/Solution.js" type="module"></script>
-  <script src="components/Progress/Progress.js?limit=3" type="module"></script>
-  <script src="components/MainCatalog/MainCatalog.js" type="module"></script>
-  <script src="components/Testimonial/Testimonial.js" type="module"></script>
+  <script src="components/Card/Card.js" type="module"></script>
+  <script src="components/HeadBanner/HeadBanner.js" type="module"></script>
   <script src="components/DownloadPrice/DownloadPrice.js" type="module"></script>
   <script src="components/Footer/Footer.js" type="module"></script>
 </body>
