@@ -3,14 +3,15 @@ import connector from "../libs/connector.js";
 
 
 
+
 connector.add("Card");
 const alias = window.location.pathname.split("/").pop().slice(0, -5) || 'index';
 
 function Card({ info_cards }) {
+  console.log(info_cards)
     React.useEffect(() => connector.del("Card"));
-    console.log(alias)
-    console.log(info_cards)
     const card = info_cards.find(info_card => info_card.alias === alias)
+    console.log(card)
     return (
         <div>
             <div>

@@ -72,6 +72,7 @@
 }
 
 #idProductsCardsButton>p {
+    width: 100%;
     margin: 0;
     padding: 0;
     border: 0;
@@ -87,7 +88,7 @@
     padding: 0;
     border: solid 3px #d1d1d1;    
     width: 100%;
-    height: 250px;   
+    min-height: 250px;   
     background-color: white;
     transition: transform ease 300ms;
 }
@@ -100,17 +101,26 @@
     padding: 0;
     border: solid 3px #d1d1d1;    
     width: 100%;
-    height: 250px;   
+    min-height: 250px;   
     background-color: white;
     box-shadow: 5px 5px 5px gray;
     transform: translate(-10px, 0);
 }
 
 .productsCardsButtonDivInfo {
+    width: 100%;
     margin: 0;
     padding: 0;
     border: 0;
     color: black;
+}
+
+.productsCardsButtonDivInfo>p:first-child {
+    text-align: center;
+}
+
+.productsCardsButtonDivInfo>p:last-child {
+    text-align: justify;
 }
 
 .productsCardsButtonDivImg {

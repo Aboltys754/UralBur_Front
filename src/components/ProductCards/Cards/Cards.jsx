@@ -1,15 +1,16 @@
 import serviceHost from "../../libs/service.host.js"
+import pdfFree from "../../../pdf/free.pdf"
 
-export default function Cards({mapPositions}) {
-    console.log(mapPositions)
-    if (mapPositions.length > 0) {        
+export default function Cards({positions, infoPath}) {
+    const mapCards = _mapCards(positions, infoPath)
+
+    if (mapCards !== undefined && mapCards.length > 0) {
         return (
             <div id="idProductsCardsButton">
-                <p>{mapPositions[0].level.title}</p>
+                <p>{mapCards[0].level.title}</p>
                 <hr />
-                {mapPositions.map((position) =>  
-                    // <a key={position.id} href={`position/${position.alias}`} className="productsCardsButton">
-                    <a key={position.id} href={`best_test.html`} className="productsCardsButton">
+                {mapCards.map((position) =>  
+                    <button key={position.id} className="productsCardsButton" >
                         <div className="productsCardsButtonDivInfo">
                             <p>{`${position.title}`}</p>
                             <p>{`${position.description}`}</p>
@@ -17,12 +18,20 @@ export default function Cards({mapPositions}) {
                         <div className="productsCardsButtonDivImg">
                             <img src={`${serviceHost("mcontent")}/api/mcontent/static/images/catalog/${position.image.fileName}`} alt={`${position.title}`} />
                         </div>
-                    </a>)
+                    </button>)
                 }
-            </div>)
-    } else {
-        return (
-            <div>Пока пусто</div>)
+            </div>
+        )
     }
     
+}
+
+function _mapCards(positions, infoPath) {
+    const tempArr = []
+    for (let i = 0; i < positions.length; i++) {
+        if (infoPath.at(-1)[0] === positions[i]['level']['id']) {
+            tempArr.push(positions[i])
+        }
+    }
+    return tempArr
 }
