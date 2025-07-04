@@ -52,13 +52,13 @@ function _animate($) {
 
 Promise.resolve()
   .then(_ => {
-    if (document.getElementById("mainSlider").innerHTML) {
-      connector.del("Slider");
-      jQuery(window).on('load', function() {
-        _animate(jQuery);
-      });
-      throw 1;
-    }
+    // if (document.getElementById("mainSlider").innerHTML) {
+    //   connector.del("Slider");
+    //   jQuery(window).on('load', function() {
+    //     _animate(jQuery);
+    //   });
+    //   throw 1;
+    // }
   })
   .then(_ => fetch(`${serviceHost("mcontent")}/api/mcontent/slider/public/?isPublic=1`))
   .then(async response => {
