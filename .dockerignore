@@ -1,7 +1,9 @@
 /node_modules
 /public
+/redis
 /src
 /scripts
+/nginx
 .dockerignore
 .gitignore
 Dockerfile
@@ -9,3 +11,5 @@ Dockerfile
 package.json
 package-lock.json
 README.md
+docker-compose.yml
+dev.docker-compose.yml

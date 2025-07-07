@@ -32,11 +32,14 @@ function Position({ position }) {
       {position.description ? <div className="col-md-8"
         dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(position.description) }}
       ></div> : <></>}
-
     </div>
 
+  <div id="pdfPreview"
+    data-filename={position.files.pdf.fileName}
+    data-title={position.title}
+  >
     <ViewPDF fileName={position.files.pdf.fileName} title={position.title} />
-
+  </div>
   </div>
 }
 
@@ -48,9 +51,21 @@ function getAlias() {
   return f[f.length - 1].slice(0, -5);
 }
 
+// Puppeteer не может рендерить pdf, у него возникают проблемы с путями к воркеру (pdf.worker)
+// это не является проблемой для кода, который он рендерит для поисковиков, 
+// но чтобы в браузере клиента pdf правильно рендерился его надо перерисовать. 
+// Для этого компонента ViewPDF обёрнута в div, который получает данные в dataSet,
+// при отрисовке в браузере клиента эти данные подхватываются от туда и передаются
+// в качестве пропсов для ViewPDF
+// в режиме разработки первый .then просто не выполнится, поэтому код работает одинаково везде
 Promise.resolve()
   .then(_ => {
     if (document.getElementById("position").innerHTML) {
+      const divPDF = document.getElementById('pdfPreview');
+      divPDF.innerHTML = '';
+
+      const root = ReactDOM.createRoot(document.getElementById("pdfPreview"));
+      root.render(<ViewPDF fileName={divPDF.dataset.filename} title={divPDF.dataset.title} />);
       connector.del("Position");
       throw 1;
     }

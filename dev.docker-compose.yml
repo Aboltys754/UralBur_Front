@@ -9,7 +9,6 @@ services:
       resources:
         limits:
           memory: 400M
-    restart: on-failure
   pssr:
     image: "geos74/pssr:0.0.4"
     environment:
@@ -18,8 +17,8 @@ services:
       - REACT_PORT=3333
       - DB_HOST=db_pssr
       - DB_PORT=6378
-      - DB_PASS=${REDIS_DB_PASS}
-      - ROOT_SELECTOR=${ROOT_SELECTOR}
+      - DB_PASS=mypassword
+      - ROOT_SELECTOR=#loadingComplete
       - TTL_KEY=86400
     deploy:
       resources:
@@ -27,50 +26,46 @@ services:
           memory: 400M
     restart: on-failure
   mauth_app:
-    image: "geos74/mauth:1.0.2"
+    image: "geos74/mauth:1.0.1"
     environment:
       - NODE_ENV=prod
       - SERVER_PORT=3001
       - DB_USER=mauth
       - DB_HOST=db_mauth
       - DB_NAME=mauth
-      - DB_PASS=${POSTGRES_PASSWORD}
+      - DB_PASS=admin
       - JWT_TTL=1800
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_SECRET_KEY=any_secret
       - VERIFICATION_TTL=10 minute
       - VERIFICATION_IGNORE=true
       - SESSION_TTL=30 day
-      - REGISTRATION_PROHIBITED=true
     volumes:
       - init-db-mauth:/mauth/libs
-    restart: on-failure
   db_mauth:
     image: "postgres"
     volumes:
       - init-db-mauth:/docker-entrypoint-initdb.d
       - db-mauth:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=mauth
       - POSTGRES_DB=mauth
-    restart: on-failure
   mcontent_app:
     image: "geos74/mcontent:0.0.5"
     environment:
       - NODE_ENV=prod
       - SERVER_PORT=3020
       - DB_USER=root
-      - DB_PASS=${MONGO_DB_PASS}
+      - DB_PASS=passwordXXX
       - DB_HOST=db_mcontent
       - DB_PORT=27017
       - DB_NAME=admin
       - CREATE_AUTOINDEX=true
       - JWT_CHECK=true
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_SECRET_KEY=any_secret
     volumes:
       - files-mcontent:/mcontent/files
       - init-db-mcontent:/mcontent/libs/db.init
-    restart: on-failure
   db_mcontent:
     image: "mongo"
     volumes:
@@ -78,60 +73,25 @@ services:
       - init-db-mcontent:/docker-entrypoint-initdb.d
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASS}
+      - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
       - MONGO_INITDB_DATABASE=admin
-    restart: on-failure
   cms:
     image: "geos74/uralbur-cms:0.0.5"
     volumes:
-      - ./nginx/admin.conf:/etc/nginx/conf.d/default.conf
-    restart: on-failure
+      - ./nginx/dev.admin.conf:/etc/nginx/conf.d/default.conf
   react:
     image: "geos74/uralbur-front:0.0.7"
     volumes:
-      - ./nginx/react.conf:/etc/nginx/conf.d/default.conf
-    restart: on-failure
+      - ./nginx/dev.react.conf:/etc/nginx/conf.d/default.conf
   main:
+#    image: "nginx"
     image: "geos74/nginx-custom:0.0.1"
     ports:
-      - "80:80"
-      - "443:443"
+      - "8000:80"
     volumes:
       - ./nginx/http.conf.template:/etc/nginx/http.conf.template
-      - ./nginx/front.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/dev.front.conf:/etc/nginx/conf.d/default.conf
       - nginx_cache:/var/cache/nginx
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    restart: on-failure
-    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
-  certbot:
-    image: certbot/certbot
-    restart: unless-stopped #+++
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt/:rw
-      - ./certbot/www:/var/www/certbot/:rw
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-  sitemap_maker:
-    image: "geos74/sitemap-maker:0.0.2"
-    environment:
-      - SERVER_PORT=3150
-      - BASE_URL=https://ubp2a2.ru
-      - API_PAGES=https://ubp2a2.ru/api/mcontent/catalog/position/public
-      - API_PREFIX=/product-single
-      - API_POSTFIX=.html
-      - API_PAGES_LIMIT=50
-      - API_PAGES_FETCH_LIMIT=3
-      - MAX_URLS_FOR_SITEMAP=20000
-      - PAUSE_MS=30000000
-      - START_MSTIME=10000000
-    volumes:
-      - ./sitemap/static.url:/sitemap-maker/static.url
-      - sitemap:/sitemap-maker/sitemap
-    deploy:
-      resources:
-        limits:
-          memory: 100M
-    restart: on-failure
 volumes:
   init-db-mauth:
   db-mauth:
