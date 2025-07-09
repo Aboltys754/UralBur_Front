@@ -74,7 +74,7 @@ Promise.resolve()
   .then(async response => {
     if (response.status == 404) {
       window.location.href = '404.html';
-      return;
+      throw 1;
     }
     const res = await response.json();
     return res;

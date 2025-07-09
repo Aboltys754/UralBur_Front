@@ -93,9 +93,9 @@ Promise.resolve()
   .then(async _ => await Promise.all([levelsFetch(), levelsFetchAll(), positionsFetch()]))
   .then(res => Promise.all(res.map(r => r.json())))
   .then(([levelsFetch, levelsFetchAll, positionsFetch]) => {
-    if (!positionsFetch.length && !levelsFetch.childs.length) {
+    if (!positionsFetch?.length && !levelsFetch?.childs?.length) {
       window.location.href = '404.html';
-      return;
+      throw 1;
     }
 
     return [levelsFetch, levelsFetchAll, positionsFetch];

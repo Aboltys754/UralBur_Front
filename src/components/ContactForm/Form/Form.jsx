@@ -40,7 +40,7 @@ export default function Form() {
     <div className="row">
       <div className="col-md-12 form-group">
         <label htmlFor="message">Напишите нам</label>
-        <textarea name="message" id="message" className="form-control " cols="30" rows="8"></textarea>
+        <textarea id="message" className="form-control " cols="30" rows="8"></textarea>
       </div>
     </div>
     <div className="row">
